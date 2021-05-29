@@ -33,9 +33,17 @@ jobs:
           pip install nose2
           pip install boto3
           pip install numpy
-          pip install pandas         
+          pip install pandas   
+          
+          mkdir -p /home/runner/.local/lib/python3.8/site-packages
+          
+          cp /usr/lib64/atlas/* /home/runner/.local/lib/python3.8/site-packages
+          cp /usr/lib64/libquadmath.so.0 /home/runner/.local/lib/python3.8/site-packages
+          cp /usr/lib64/libgfortran.so.4 /home/runner/.local/lib/python3.8/site-packages
+          
           python -m nose2 test_transformation.py
           
+                
       - name: zip package
         uses: montudor/action-zip@v0.1.0
         with:
