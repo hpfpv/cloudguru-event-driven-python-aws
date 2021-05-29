@@ -26,7 +26,9 @@ jobs:
           pip install awscli
           python -m pip install --upgrade pip
           pip install nose2
-                   
+          pip install boto3
+          pip install numpy
+          pip install pandas         
           python -m nose2 test_transformation.py
           
       - name: zip package
