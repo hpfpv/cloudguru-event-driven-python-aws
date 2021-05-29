@@ -3,7 +3,7 @@ on:
   push:
       branches: [ main ]
       paths:
-        - 'backend/ACGETLCovid19'
+        - 'backend/**'
     
 jobs:
   deploy_source:
