@@ -1,4 +1,4 @@
-name: Test and Deploy to Lambda ACG_ETLCovid19
+name: Test and Deploy to ACG_ETLCovid19 Function
 on: 
   push:
       branches: [ main ]
