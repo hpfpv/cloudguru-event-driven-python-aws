@@ -1,4 +1,4 @@
-name: Test and Deploy to Lambda
+name: Test and Deploy to ACG_ETLCovid19SNSTrigger Function
 on: 
   push:
       branches: [ main ]
@@ -22,7 +22,7 @@ jobs:
           
       - name: 'Test functions with Nose2'
         run: |
-          pushd './backend'
+          pushd './backend/ACGETLCovid19SNSTrigger'
           pip install awscli
           python -m pip install --upgrade pip
           pip install nose2
