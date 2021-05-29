@@ -23,7 +23,12 @@ jobs:
       - name: 'Test functions with Nose2'
         run: |
           pushd './backend/ACGETLCovid19/'
-          echo "PYTHONPATH=mlprepare" >> $GITHUB_ENV
+          cp home/runner/work/cloudguru-event-driven-python-aws/backend/ACGETLCovid19/numpy* /home/runner/.local/lib/python3.8/site-packages/
+          cp home/runner/work/cloudguru-event-driven-python-aws/backend/ACGETLCovid19/pandas* /home/runner/.local/lib/python3.8/site-packages/
+          cp home/runner/work/cloudguru-event-driven-python-aws/backend/ACGETLCovid19/dateutil* /home/runner/.local/lib/python3.8/site-packages/
+          cp home/runner/work/cloudguru-event-driven-python-aws/backend/ACGETLCovid19/pytz* /home/runner/.local/lib/python3.8/site-packages/
+          cp home/runner/work/cloudguru-event-driven-python-aws/backend/ACGETLCovid19/six* /home/runner/.local/lib/python3.8/site-packages/
+          cp home/runner/work/cloudguru-event-driven-python-aws/backend/ACGETLCovid19/python_date* /home/runner/.local/lib/python3.8/site-packages/
           
           pip install awscli
           python -m pip install --upgrade pip
