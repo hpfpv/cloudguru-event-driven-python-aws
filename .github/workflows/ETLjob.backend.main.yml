@@ -23,26 +23,12 @@ jobs:
       - name: 'Test functions with Nose2'
         run: |
           pushd './backend/ACGETLCovid19/'
-          
-          sudo apt-get install -y yum
-          yum install -y atlas-devel
-          yum install -y atlas-sse3-devel 
-          yum install -y blas-devel 
-          yum install -y lapack-devel
+          echo "PYTHONPATH=mlprepare" >> $GITHUB_ENV
           
           pip install awscli
           python -m pip install --upgrade pip
           pip install nose2
-          pip install boto3
-          pip install numpy
-          pip install pandas   
-          
-          mkdir -p /home/runner/.local/lib/python3.8/site-packages
-          
-          cp /usr/lib64/atlas/* /home/runner/.local/lib/python3.8/site-packages
-          cp /usr/lib64/libquadmath.so.0 /home/runner/.local/lib/python3.8/site-packages
-          cp /usr/lib64/libgfortran.so.4 /home/runner/.local/lib/python3.8/site-packages
-          
+          pip install boto3    
           python -m nose2 test_transformation.py
           
                 
