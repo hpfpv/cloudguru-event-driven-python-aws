@@ -23,6 +23,8 @@ jobs:
       - name: 'Test functions with Nose2'
         run: |
           pushd './backend/ACGETLCovid19/'
+          
+          sudo apt-get install -y yum
           yum install -y atlas-devel
           yum install -y atlas-sse3-devel 
           yum install -y blas-devel 
