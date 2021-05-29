@@ -1,0 +1,39 @@
+name: Test and Deploy to Lambda
+on: 
+  push:
+      branches: [ main ]
+      paths:
+        - 'backend/ACGETLCovid19SNSTrigger'
+    
+jobs:
+  deploy_source:
+    name: Test and Deploy to Lambda
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: actions/checkout@v1
+        
+      - name: 'Configure AWS credentials'
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'
+          
+      - name: 'Test functions with Nose2'
+        run: |
+          pushd './backend'
+          pip install awscli
+          python -m pip install --upgrade pip
+          pip install nose2
+          pip install boto3
+          python -m nose2
+               
+      - name: Deploy to Lambda
+        uses: appleboy/lambda-action@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'
+          function_name: ACG_ETLCovid19SNSTrigger
+          source: backend/ACGETLCovid19SNSTrigger/**
