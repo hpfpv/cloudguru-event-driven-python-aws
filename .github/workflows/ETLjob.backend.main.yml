@@ -29,7 +29,7 @@ jobs:
           pip install boto3
           python -m nose2
           
-      - name: zip
+      - name: zip package
         uses: montudor/action-zip@v0.1.0
         with:
           args: zip -qq -r ./backend/ACGETLCovid19.zip ./backend/ACGETLCovid19
