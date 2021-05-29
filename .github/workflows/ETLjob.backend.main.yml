@@ -23,6 +23,11 @@ jobs:
       - name: 'Test functions with Nose2'
         run: |
           pushd './backend/ACGETLCovid19/'
+          yum install -y atlas-devel
+          yum install -y atlas-sse3-devel 
+          yum install -y blas-devel 
+          yum install -y lapack-devel
+          
           pip install awscli
           python -m pip install --upgrade pip
           pip install nose2
