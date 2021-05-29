@@ -28,6 +28,11 @@ jobs:
           pip install nose2
           pip install boto3
           python -m nose2
+          
+      - name: zip
+        uses: montudor/action-zip@v0.1.0
+        with:
+          args: zip -qq -r ./backend/ACGETLCovid19.zip ./backend/ACGETLCovid19
                
       - name: Deploy to Lambda
         uses: appleboy/lambda-action@master
@@ -36,4 +41,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
           function_name: ACG_ETLCovid19
-          source: backend/ACGETLCovid19/**
+          zip_file: backend/ACGETLCovid19.zip
