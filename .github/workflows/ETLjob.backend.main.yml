@@ -23,6 +23,7 @@ jobs:
       - name: 'Test functions with Nose2'
         run: |
           pushd './backend/ACGETLCovid19/'
+          mkdir -p /home/runner/.local/lib/python3.8/site-packages/lib
           
           cp ./numpy* /home/runner/.local/lib/python3.8/site-packages/lib/
           cp ./pandas* /home/runner/.local/lib/python3.8/site-packages/lib/
