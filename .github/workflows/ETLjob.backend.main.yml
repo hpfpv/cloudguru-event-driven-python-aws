@@ -41,7 +41,7 @@ jobs:
         uses: montudor/action-zip@v1
 
       - name: Zip package
-        run: zip -qq -r ACGETLCovid19.zip ACGETLCovid19
+        run: zip -qq -r ACG_ETLCovid19.zip ACGETLCovid19
         working-directory: './backend'
         
                
@@ -52,4 +52,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
           function_name: ACG_ETLCovid19
-          zip_file: ./backend/ACGETLCovid19.zip
+          zip_file: ./backend/ACG_ETLCovid19.zip
