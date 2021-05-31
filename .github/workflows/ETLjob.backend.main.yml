@@ -2,8 +2,7 @@ name: Test and Deploy to ETLCovid19 Function
 on: 
   push:
       branches: [ main ]
-      paths:
-        - 'backend/ACGETLCovid19/**'
+      
     
 jobs:
   deploy_source:
@@ -25,7 +24,7 @@ jobs:
       - name: zip package
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq -r ./backend/ACGETLCovid19.zip ./backend/ACGETLCovid19/*
+          args: zip -qq -r ./ACGETLCovid19.zip ./backend/ACGETLCovid19/*
                
       - name: Deploy to Lambda
         uses: appleboy/lambda-action@master
@@ -34,4 +33,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
           function_name: ACG_ETLCovid19
-          zip_file: ./backend/ACGETLCovid19.zip
+          zip_file: ./ACGETLCovid19.zip
