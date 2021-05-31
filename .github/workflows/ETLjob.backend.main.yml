@@ -35,7 +35,7 @@ jobs:
           pip3 install numpy
           pip3 install nose2
           pip3 install boto3    
-          python -m nose2 test_transformation.py
+          python -m nose2 test_transformation.test_transformation
           
                 
       - name: zip package
