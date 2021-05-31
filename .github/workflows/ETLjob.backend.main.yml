@@ -41,7 +41,7 @@ jobs:
         uses: montudor/action-zip@v1
 
       - name: Zip package
-        run: zip -qq -r -j ACG_ETLCovid19.zip ./dist/* 
+        run: zip -qq -r -j ACG_ETLCovid19.zip ./* 
         working-directory: './backend/ACGETLCovid19/'
         
                
