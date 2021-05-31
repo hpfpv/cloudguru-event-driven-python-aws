@@ -19,23 +19,22 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
+         
+      - name: Setup Python 3.6 Environment
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.6
           
       - name: 'Test functions with Nose2'
         run: |
           pushd './backend/ACGETLCovid19/'
-          mkdir -p /home/runner/.local/lib/python3.8/site-packages/lib
-          
-          cp -r ./numpy* /home/runner/.local/lib/python3.8/site-packages/lib/
-          cp -r ./pandas* /home/runner/.local/lib/python3.8/site-packages/lib/
-          cp -r ./dateutil* /home/runner/.local/lib/python3.8/site-packages/lib/
-          cp -r ./pytz* /home/runner/.local/lib/python3.8/site-packages/lib/
-          cp -r ./six* /home/runner/.local/lib/python3.8/site-packages/lib/
-          cp -r ./python_date* /home/runner/.local/lib/python3.8/site-packages/lib/
           
           pip install awscli
           python -m pip install --upgrade pip
-          pip install nose2
-          pip install boto3    
+          pip3 install pandas
+          pip3 install numpy
+          pip3 install nose2
+          pip3 install boto3    
           python -m nose2 test_transformation.py
           
                 
