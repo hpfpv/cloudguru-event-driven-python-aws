@@ -41,8 +41,8 @@ jobs:
         uses: montudor/action-zip@v1
 
       - name: Zip package
-        run: zip -qq -r ACG_ETLCovid19.zip ACGETLCovid19
-        working-directory: './backend'
+        run: zip -qq -r -j ACG_ETLCovid19.zip ./dist/* 
+        working-directory: './backend/ACGETLCovid19/'
         
                
       - name: Deploy to Lambda
