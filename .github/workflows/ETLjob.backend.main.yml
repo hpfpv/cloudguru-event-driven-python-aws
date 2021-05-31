@@ -20,22 +20,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
          
-      - name: Setup Python 3.6 Environment
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.6
-          
-      - name: 'Test functions with Nose2'
-        run: |
-          pushd './backend/ACGETLCovid19/'
-          
-          pip install awscli
-          python -m pip install --upgrade pip
-          pip3 install pandas
-          pip3 install numpy
-          pip3 install nose2
-          pip3 install boto3    
-          python -m nose2 test_transformation.test_transformation
+     
          
       - name: Install zip
         uses: montudor/action-zip@v1
