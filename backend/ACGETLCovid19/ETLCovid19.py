@@ -89,7 +89,7 @@ def load_data(dataframe, dynamotable):
         response = append_data(dataframe, dynamotable)
         print( str(response) + ' ITEMS ADDED')
     print('---------------------')
-    print ('Data load completed!')
+    print ('Data load completed!!')
     print('---------------------')
     
     
