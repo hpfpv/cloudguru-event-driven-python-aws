@@ -1,6 +1,3 @@
-import json
-import boto3
-
 def get_stream_insert(event, context):
     try:
         new_rows_count = 0
