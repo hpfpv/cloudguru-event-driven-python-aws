@@ -7,11 +7,11 @@ Resources:
     Type: AWS::S3::Bucket
     DeletionPolicy: Retain
     Properties:
-      Bucketname: "hpf-acg-etlcovid19"
+      BucketName: "hpf-acg-etlcovid19"
       DeletionPolicy: Retain
       Tags:
-        Key: "resource-group"
-        Value: "acg-etlcovid19"
+        - Key: "resource-group"
+          Value: "acg-etlcovid19"
 
 #Import DynamoDB Table to store data
   ETLCovid19Table:
@@ -42,8 +42,8 @@ Resources:
       StreamSpecification:
         StreamViewType: NEW_AND_OLD_IMAGES
       Tags:
-        Key: "resource-group"
-        Value: "acg-etlcovid19"
+        - Key: "resource-group"
+          Value: "acg-etlcovid19"
 
 #Import ETLCovid19 Lambda Function
   ETLCovid19Function:
@@ -59,8 +59,8 @@ Resources:
         ZipFile: "/Lambda/ACGETLCovid19.zip"
       Runtime: "python3.6"
       Tags:
-        Key: "resource-group"
-        Value: "acg-etlcovid19"
+        - Key: "resource-group"
+          Value: "acg-etlcovid19"
 
 #Import ETLTriggerSNS Lambda Function
   ETLCovid19SNSFunction:
@@ -76,21 +76,21 @@ Resources:
         ZipFile: "/lambda/ACGETLCovid19SNSTrigger.zip"
       Runtime: "python3.8"
       Tags:
-        Key: "resource-group"
-        Value: "acg-etlcovid19"
+        - Key: "resource-group"
+          Value: "acg-etlcovid19"
 
 #Import SNS Topic for notification
   ETLCovid19Topic:
     Type: AWS::SNS::Topic
     DeletionPolicy: Retain
     Properties:
-      TopicArn: "arn:aws:sns:us-east-1:601091111123:ETLCovid19Topic"
+      TopicName: "ETLCovid19Topic"
       Subscription:
         - Endpoint: "pif92@hotmail.com"
           Protocol: "email"
       Tags:
-        Key: "resource-group"
-        Value: "acg-etlcovid19"
+        - Key: "resource-group"
+          Value: "acg-etlcovid19"
 
 #Import SQS queue for retries
   ETLCovid19Queue:
@@ -100,8 +100,8 @@ Resources:
       QueueName: "ETLCovid19Queue"
       VisibilityTimeout: 30
       Tags:
-        Key: "resource-group"
-        Value: "acg-etlcovid19"
+        - Key: "resource-group"
+          Value: "acg-etlcovid19"
 
 #Import CloudWatch Rule
   ETLCovid19CloudWatchRule:
@@ -116,5 +116,5 @@ Resources:
       Targets: 
         Arn: "arn:aws:lambda:us-east-1:601091111123:function:ACG_ETLCovid19"
       Tags:
-        Key: "resource-group"
-        Value: "acg-etlcovid19"
+        - Key: "resource-group"
+          Value: "acg-etlcovid19"
