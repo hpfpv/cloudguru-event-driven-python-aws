@@ -1,9 +1,8 @@
-name: Test and Deploy to ACG_ETLCovid19 Function
+name: Test and Deploy to ETLCovid19 Function
 on: 
   push:
       branches: [ main ]
-      paths:
-        - 'backend/ACGETLCovid19/**'
+      
     
 jobs:
   deploy_source:
@@ -20,28 +19,13 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
          
-      - name: Setup Python 3.6 Environment
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.6
-          
-      - name: 'Test functions with Nose2'
-        run: |
-          pushd './backend/ACGETLCovid19/'
-          
-          pip install awscli
-          python -m pip install --upgrade pip
-          pip3 install pandas
-          pip3 install numpy
-          pip3 install nose2
-          pip3 install boto3    
-          python -m nose2 test_transformation.test_transformation
-          
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
+      - name: Zip output
+        run: zip -qq -r ACGETLCovid19.zip .
+        working-directory: ./backend/ACGETLCovid19
                 
-      - name: zip package
-        uses: montudor/action-zip@v0.1.0
-        with:
-          args: zip -qq -r ./backend/ACGETLCovid19.zip ./backend/ACGETLCovid19
                
       - name: Deploy to Lambda
         uses: appleboy/lambda-action@master
@@ -50,4 +34,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
           function_name: ACG_ETLCovid19
-          zip_file: backend/ACGETLCovid19.zip
+          zip_file: ./backend/ACGETLCovid19/ACGETLCovid19.zip
