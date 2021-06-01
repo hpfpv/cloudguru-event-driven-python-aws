@@ -114,6 +114,3 @@ Resources:
       State: ENABLED
       Targets: 
         Arn: "arn:aws:lambda:us-east-1:601091111123:function:ACG_ETLCovid19"
-      Tags:
-        - Key: "resource-group"
-          Value: "acg-etlcovid19"
