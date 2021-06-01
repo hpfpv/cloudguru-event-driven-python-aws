@@ -8,7 +8,6 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       BucketName: "hpf-acg-etlcovid19"
-      DeletionPolicy: Retain
       Tags:
         - Key: "resource-group"
           Value: "acg-etlcovid19"
