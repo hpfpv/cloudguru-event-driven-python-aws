@@ -55,7 +55,7 @@ jobs:
           function_name: ACG_ETLCovid19
           zip_file: ./backend/ACGETLCovid19/ACGETLCovid19.zip
           
-      - name: Upload package to S3
+      - name: Upload package to S3 bucket
         uses: zdurham/s3-upload-github-action@master
         with:
           args: --acl public-read
