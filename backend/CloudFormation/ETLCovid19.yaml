@@ -1,0 +1,120 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "ACG_ETLCovid19 CF Template"
+Resources:
+
+#Import S3 bucket
+  ETLCovid19Bucket:
+    Type: AWS::S3::bucket
+    DeletionPolicy: Retain
+    Properties:
+      Bucketname: "hpf-acg-etlcovid19"
+      DeletionPolicy: Retain
+      Tags:
+        Key: "resource-group"
+        Value: "acg-etlcovid19"
+
+#Import DynamoDB Table to store data
+  ETLCovid19Table:
+    Type: AWS::DynamoDB::Table
+    DeletionPolicy: Retain
+    Properties:
+      TableName: "ACGETLCovid19"
+      BillingMode: PROVISIONED
+      AttributeDefinitions: 
+        -
+          AttributeName: "date"
+          AttributeType: "S"
+        -
+          AttributeName: "cases"
+          AttributeType: "S"
+        - 
+          AttributeName: "deaths"
+          AttributeType: "S"
+        - 
+          AttributeName: "Recovered"
+          AttributeType: "S"
+      KeySchema: 
+        - AttributeName: "date"
+          KeyType: "HASH"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      Tags:
+        Key: "resource-group"
+        Value: "acg-etlcovid19"
+
+#Import ETLCovid19 Lambda Function
+  ETLCovid19Function:
+    DependsOn: ETLCovid19Bucket
+    Type: AWS::Lambda::Function
+    DeletionPolicy: Retain
+    Properties:
+      FunctionName: "ACG_ETLCovid19"
+      Handler: "ETLCovid19.main"
+      Role: "arn:aws:iam::601091111123:role/service-role/ACG-EventDrivenPyhton-role-swxqasmi"
+      Code:
+        S3Bucket: "hpf-acg-etlcovid19"
+        ZipFile: "/Lambda/ACGETLCovid19.zip"
+      Runtime: "python3.6"
+      Tags:
+        Key: "resource-group"
+        Value: "acg-etlcovid19"
+
+#Import ETLTriggerSNS Lambda Function
+  ETLCovid19SNSFunction:
+    DependsOn: ETLCovid19Bucket
+    Type: AWS::Lambda::Function
+    DeletionPolicy: Retain
+    Properties:
+      FunctionName: "ACG_ETLCovid19SNSTrigger"
+      Handler: "trigger_sns.main"
+      Role: "arn:aws:iam::601091111123:role/service-role/ACG_ETLCovid19SNS-role"
+      Code:
+        S3Bucket: "hpf-acg-etlcovid19"
+        ZipFile: "/lambda/ACGETLCovid19SNSTrigger.zip"
+      Runtime: "python3.8"
+      Tags:
+        Key: "resource-group"
+        Value: "acg-etlcovid19"
+
+#Import SNS Topic for notification
+  ETLCovid19Topic:
+    Type: AWS::SNS::Topic
+    DeletionPolicy: Retain
+    Properties:
+      TopicArn: "arn:aws:sns:us-east-1:601091111123:ETLCovid19Topic"
+      Subscription:
+        - Endpoint: "pif92@hotmail.com"
+          Protocol: "email"
+      Tags:
+        Key: "resource-group"
+        Value: "acg-etlcovid19"
+
+#Import SQS queue for retries
+  ETLCovid19Queue:
+    Type: AWS::SQS::Queue
+    DeletionPolicy: Retain
+    Properties:
+      QueueName: "ETLCovid19Queue"
+      VisibilityTimeout: 30
+      Tags:
+        Key: "resource-group"
+        Value: "acg-etlcovid19"
+
+#Import CloudWatch Rule
+  ETLCovid19CloudWatchRule:
+    DependsOn: ETLCovid19Function 
+    Type: AWS::Events::Rule
+    DeletionPolicy: Retain
+    Properties: 
+      Description: "Rule to trigger Function ACG_ETLCovid19"
+      Name: "ACG_ETLCovid19Rule"
+      ScheduleExpression: "rate(5 days)"
+      State: ENABLED
+      Targets: 
+        Arn: "arn:aws:lambda:us-east-1:601091111123:function:ACG_ETLCovid19"
+      Tags:
+        Key: "resource-group"
+        Value: "acg-etlcovid19"

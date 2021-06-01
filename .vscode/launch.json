@@ -7,6 +7,34 @@
         {
             "type": "aws-sam",
             "request": "direct-invoke",
+            "name": "Cloudformation:ETLCovid19Function",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/backend/Cloudformation/template.yaml",
+                "logicalId": "ETLCovid19Function"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
+            "name": "Cloudformation:ProcessDynamoDBStream",
+            "invokeTarget": {
+                "target": "template",
+                "templatePath": "${workspaceFolder}/backend/Cloudformation/template.yaml",
+                "logicalId": "ProcessDynamoDBStream"
+            },
+            "lambda": {
+                "payload": {},
+                "environmentVariables": {}
+            }
+        },
+        {
+            "type": "aws-sam",
+            "request": "direct-invoke",
             "name": "ACG_ETLCovid19SNSTrigger:lambda_function.lambda_handler (python3.8)",
             "invokeTarget": {
                 "target": "code",
