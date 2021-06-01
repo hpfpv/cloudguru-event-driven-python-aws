@@ -7,7 +7,7 @@ on:
     
 jobs:
   deploy_source:
-    name: Copy file to S3
+    name: Copy CF file to S3
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
