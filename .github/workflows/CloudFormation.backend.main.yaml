@@ -7,7 +7,7 @@ on:
     
 jobs:
   deploy_source:
-    name: Test and Deploy to Lambda
+    name: Copy file to S3
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
