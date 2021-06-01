@@ -12,7 +12,7 @@ def main(event, context):
             Subject = 'ETLCovid19 job status',
             MessageStructure = 'string'
         )
-        print(str(response) + ' has been published')
+        print(str(response) + ' has been published!')
         return response
     except Exception as er:
         print(er)
