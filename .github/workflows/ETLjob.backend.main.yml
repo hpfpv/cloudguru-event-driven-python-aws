@@ -36,7 +36,7 @@ jobs:
           pip3 install numpy
           pip3 install nose2
           pip3 install boto3    
-          python -m nose2 test_transformation.test_transformation test_import_csv.test_import_csv
+          python -m nose2 test_import_csv.test_import_csv test_transformation.test_transformation
 
       - name: Install zip
         uses: montudor/action-zip@v1
