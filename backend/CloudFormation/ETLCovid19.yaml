@@ -46,7 +46,9 @@ Resources:
 
 #Import ETLCovid19 Lambda Function
   ETLCovid19Function:
-    DependsOn: ETLCovid19Bucket
+    DependsOn:
+      - ETLCovid19Bucket
+      - ETLCovid19Table
     Type: AWS::Lambda::Function
     DeletionPolicy: Retain
     Properties:
@@ -63,7 +65,9 @@ Resources:
 
 #Import ETLTriggerSNS Lambda Function
   ETLCovid19SNSFunction:
-    DependsOn: ETLCovid19Bucket
+    DependsOn:
+      - ETLCovid19Bucket
+      - ETLCovid19Table
     Type: AWS::Lambda::Function
     DeletionPolicy: Retain
     Properties:
@@ -80,6 +84,8 @@ Resources:
 
 #Import SNS Topic for notification
   ETLCovid19Topic:
+    DependsOn:
+     - ETLCovid19SNSFunction
     Type: AWS::SNS::Topic
     DeletionPolicy: Retain
     Properties:
@@ -93,6 +99,8 @@ Resources:
 
 #Import SQS queue for retries
   ETLCovid19Queue:
+    DependsOn:
+      - ETLCovid19Topic
     Type: AWS::SQS::Queue
     DeletionPolicy: Retain
     Properties:
