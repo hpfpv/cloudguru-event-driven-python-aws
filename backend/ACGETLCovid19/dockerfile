@@ -1,0 +1,10 @@
+FROM amazon/aws-lambda-python:3.8
+ENV AWS_ACCESS_KEY_ID=AKIAYX46SPDJ7RPULI77
+ENV AWS_SECRET_ACCESS_KEY=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
+RUN mkdir /app
+WORKDIR /app
+COPY requirements.txt ./
+RUN pip install --target=. -r requirements.txt 
+COPY ETLCovid19.py transformation.py import_csv.py ./
+ENTRYPOINT [ "python" ]
+CMD [ "-u", "ETLCovid19.py" ] 

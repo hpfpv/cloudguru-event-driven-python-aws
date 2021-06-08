@@ -1,8 +1,5 @@
 import boto3
-from botocore.credentials import JSONFileCache
-from botocore.exceptions import ClientError
-
-import json
+import os
 import import_csv
 import transformation
 
@@ -10,9 +7,8 @@ event = []
 context = []
 
 data = transformation.main()
-dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
+dynamodb = boto3.resource('dynamodb', region_name='us-east-1', aws_access_key_id = os.environ['AWS_ACCESS_KEY_ID'],aws_secret_access_key = os.environ['AWS_SECRET_ACCESS_KEY'])
 table = dynamodb.Table('ACGETLCovid19')
-stream = boto3.client('dynamodbstreams')
 
 def append_data(dataframe, dynamotable):
     try:
@@ -23,13 +19,6 @@ def append_data(dataframe, dynamotable):
             cases = str(dataframe.loc[row, 'cases'])
             deaths = str(dataframe.loc[row, 'deaths'])
             Recovered = str(dataframe.loc[row, 'Recovered'])
-            #print('date: ' + date + '       deaths:' + deaths)
-            #check = dynamotable.get_item(
-             #           Key={
-              #              'date': date
-               #         }
-                #    )
-            #if (check['Item']['date'] != date):
             dynamotable.put_item(
                     Item={
                         'date': date,
