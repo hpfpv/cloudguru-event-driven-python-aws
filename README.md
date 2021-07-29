@@ -1,4 +1,4 @@
-# ACloudGur CHallenges - Event-driven ETL on AWS
+# ACloudGuru CHallenges - Event-driven ETL on AWS
 
 I started this challenge as part of my training after completing last month's [Azure Resume challenge](https://acloudguru.com/blog/engineering/cloudguruchallenge-your-resume-in-azure?utm_source=instagram&utm_medium=social&utm_campaign=cloudguruchallenge). 
 This one was particularly challenging for me because I had no such experience in Python when starting the project. I learnt on the go with a lot of resources from  [stack overflow](https://stackoverflow.com/)  and  [AWS docs](https://docs.aws.amazon.com/).
